@@ -98,7 +98,7 @@ from db import getSession, Switch
 Session = getSession()
 
 with Session() as session:
-    stmt = select(Switch).where(Switch.hostname='switch1')
+    stmt = select(Switch).where(Switch.hostname=='switch1')
     switch = session.scalars(stmt).one()
     print(switch)
 ```
