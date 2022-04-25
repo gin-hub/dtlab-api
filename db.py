@@ -1,22 +1,24 @@
 from sqlalchemy import Boolean, create_engine, Integer, Column, String, ForeignKey
+from sqlalchemy.engine import Engine
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker, Session
-from os import getenv
 
 Base = declarative_base()
-engine = None
-_session = None
 
-def init() -> None:
-    global engine, _session
-    dsn = f'postgresql://{getenv("DB_USER")}:{getenv("DB_PASSWORD")}@{getenv("DB_HOST")}:{getenv("DB_PORT")}/{getenv("DB_NAME")}?sslmode=disable'
-    engine = create_engine(dsn, echo=True)
-    _session = sessionmaker(engine)
-    Base.metadata.create_all(engine)
+class DB:
 
-def getSession() -> Session:
-    global _session
-    return _session
-  
+    _engine: Engine = None
+    _session: Session = None
+
+    @staticmethod
+    def init(dsn: str) -> None:
+        DB._engine = create_engine(dsn, echo=True)
+        DB._session = sessionmaker(DB._engine)
+        Base.metadata.create_all(DB._engine)
+
+    @staticmethod
+    def getSession() -> Session:
+        return DB._session()
+
 class Router(Base):
     __tablename__ = 'routers'
 
