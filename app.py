@@ -26,6 +26,7 @@ load_dotenv()
 
 # db connection
 dsn = f'postgresql://{getenv("DB_USER")}:{getenv("DB_PASSWORD")}@{getenv("DB_HOST")}:{getenv("DB_PORT")}/{getenv("DB_NAME")}?sslmode=disable'
+
 DB.init(dsn)
 
 
