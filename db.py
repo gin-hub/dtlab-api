@@ -52,5 +52,8 @@ class Switch(Base):
     id = Column(Integer, primary_key=True)
     hostname = Column(String)
 
+    mgmt_ip = Column(String)
+    mgmg_netmask = Column(String)
+
     def __repr__(self):
         return f'Switch(id={self.id!r}, hostname={self.hostname!r})'
