@@ -8,7 +8,6 @@ You will work together to create a simple REST service that manages network devi
 The app will provide 3 core functionalities:
 * **Managing switches**: users will have a CRUD interface for switches;
 * **Managing routers**: users will have a CRUD interface for routers;
-* **Configuring devices**: users will configure devices by updating switches and devices model;
 
 Each group will find more instructions for its task in the [*issues*](https://github.com/g-capasso/dtlab-api/issues) section.
 
