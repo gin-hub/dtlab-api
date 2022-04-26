@@ -10,7 +10,7 @@ The app will provide 3 core functionalities:
 * **Managing routers**: users will have a CRUD interface for routers;
 * **Configuring devices**: users will configure devices by updating switches and devices model;
 
-Each group will find more instructions for its task in the *issues* section.
+Each group will find more instructions for its task in the [*issues*](https://github.com/g-capasso/dtlab-api/issues) section.
 
 *WARN* The following are guidelines. You can discuss on how to implement your solution to accomplish the task.
 
