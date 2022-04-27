@@ -9,6 +9,7 @@ class Router(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     hostname = db.Column(db.String)
+    motd = db.Column(db.String)
     interfaces = db.relationship('Interface', backref='router', cascade='all, delete-orphan')
 
     def __repr__(self) -> str:
@@ -53,9 +54,11 @@ class Switch(db.Model):
 
     ip = db.Column(db.String)
     netmask = db.Column(db.String)
+    motd = db.Column(db.String)
+
 
     def __repr__(self):
-        return f'Switch(id={self.id!r}, hostname={self.hostname!r})'
+        return f'Switch(id={self.id!r}, hostname={self.hostname!r}) ip={self.ip!r} netmask={self.netmask!r}'
 
     def serialize(self) -> dict:
         return {
