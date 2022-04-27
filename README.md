@@ -77,33 +77,41 @@ Generally, an HTTP handler follows a standard structure:
 
 #### Accessing the database
 
-Database access is implemented using [SQL Alchemy](https://docs.sqlalchemy.org/en/14/orm/quickstart.html). Usage is simplified with *DB* class provided in `db.py` file. To get a valid connection to the database you will need to use `DB.getSession()` static method in the class.
+Database access is implemented using [Flask SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/). Usage is simplified with classes provided in `models.py` file. 
 Look at the documentation linked above and example below to learn how to perform simple queries. 
 Feel free to change everything as you want!
 
 For example, to store a switch:
 
 ```python
-from db import DB, Switch
+from models import db, Switch
 
-with DB.getSession() as session:
-    switch = Switch(
-        hostname: 'switch1'
-    )
-    session.add(switch)
-    session.commit()
+switch = Switch(
+    hostname: 'switch1'
+)
+db.session.add(switch)
+db.session.commit()
 ```
 
 To query an object:
 
 ```python
-from sqlalchemy import select
-from db import DB, Switch
+from db import db, Switch
 
+switch = Switch.query.filter_by(id=1).first()
+```
 
-with DB.getSession() as session:
-    stmt = select(Switch).where(Switch.hostname=='switch1')
-    switch = session.scalars(stmt).one()
+#### Serialization
+
+Serialization is about transforming an object into a string, so it can be send over the network as a stream of bytes. As it can be a very hard operation, every model in `models.py` offer a serialize method.
+In order to return JSON object, you have tu use the `jsonify` function from Flask library.
+
+```python
+from db import db, Router
+from flask import jsonify
+
+router = Router.query.filter_by(id=1).first()
+jsonify(router.serialize())
 ```
 
 ### Part 3 - Commit your changes (10 minutes)

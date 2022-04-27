@@ -5,11 +5,24 @@ from router import router_blueprint
 from switches import switches_blueprint
 
 from dotenv import load_dotenv
-from db import DB
 
+
+# load environment variables from '.env' file
+load_dotenv()
 
 # create flask instance
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] =  f'postgresql://{getenv("DB_USER")}:{getenv("DB_PASSWORD")}@{getenv("DB_HOST")}:{getenv("DB_PORT")}/{getenv("DB_NAME")}?sslmode=disable'
+
+# db connection
+from models import db
+
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+
 
 # mount endpoint defined from other files
 app.register_blueprint(router_blueprint, url_prefix='/devices/routers')
@@ -18,13 +31,4 @@ app.register_blueprint(switches_blueprint, url_prefix='/devices/switches')
 @app.route('/test', methods=['GET'])
 def test() -> str:
     return 'Test succeded!'
-
-# load environment variables from '.env' file
-load_dotenv()
-
-# db connection
-dsn = f'postgresql://{getenv("DB_USER")}:{getenv("DB_PASSWORD")}@{getenv("DB_HOST")}:{getenv("DB_PORT")}/{getenv("DB_NAME")}?sslmode=disable'
-
-DB.init(dsn)
-
 
