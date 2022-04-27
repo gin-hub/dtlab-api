@@ -30,8 +30,9 @@ class Interface(db.Model):
     name = db.Column(db.String)
     ip = db.Column(db.String)
     netmask = db.Column(db.String)
+    description = db.Column(db.String)
 
-    router_id = db.Column(db.Integer, db.ForeignKey('routers.id'), nullable=True)
+    router_id = db.Column(db.Integer, db.ForeignKey('routers.id', ondelete='CASCADE'), nullable=True)
     active = db.Column(db.Boolean)
 
     def __repr__(self) -> str:
