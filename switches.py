@@ -7,7 +7,7 @@ switches_blueprint = Blueprint('switches', __name__)
 def all() -> str:
     return jsonify([switch.serialize() for switch in Switch.query.all()])
 
-@switches_blueprint.route('/<id>', methods=['GET'])
+@switches_blueprint.route('/detail/<id>', methods=['GET'])
 def one(id: str):
     if not id.isdigit():
         return jsonify({

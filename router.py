@@ -7,7 +7,7 @@ router_blueprint = Blueprint('routers', __name__)
 def all() -> str:
     return jsonify([router.serialize() for router in Router.query.all()])
 
-@router_blueprint.route('/<id>', methods=['GET'])
+@router_blueprint.route('/detail/<id>', methods=['GET'])
 def one(id: str):
     if not id.isdigit():
         return jsonify({
