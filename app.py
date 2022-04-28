@@ -6,6 +6,8 @@ from switches import switches_blueprint
 
 from dotenv import load_dotenv
 
+# docker run -d -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres:12.10-bullseye
+
 
 # load environment variables from '.env' file
 load_dotenv()
