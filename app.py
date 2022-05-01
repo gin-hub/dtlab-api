@@ -3,6 +3,7 @@ from flask import Flask
 
 from router import router_blueprint
 from switches import switches_blueprint
+from models import Switch
 
 from dotenv import load_dotenv
 
@@ -22,6 +23,9 @@ db.init_app(app)
 
 with app.app_context():
     db.create_all()
+
+#add a switch in the database
+#Switch.query.load
 
 
 # mount endpoint defined from other files
